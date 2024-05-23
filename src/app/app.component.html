@@ -14,61 +14,91 @@
   </div>
 
 <div class="row">
-  <div class="col-sm-3">
-    <div class="card">
-      <div class="card-header">
-        <div class="row">
-          <div class="col-sm-6">
-            <h5 class="card-title">John Doe  </h5>
-            </div>
-            <div class="col-sm-6">
-              <h6 class="card-title">movie No  </h6>
-              </div>
-            </div>
-      </div>
-      <div class="card-body">
-        
-              
-        <p class="card-text">City.</p>
-        <p class="card-text">State.</p>
-        <p class="card-text">Pincode.</p>
-        <p class="card-text">Address.</p>
-        <!-- <a href="#" class="btn btn-primary">See Profile</a> -->
-        <div class="card-footer">
-          <p class="text-center"> Email</p>
-        </div>
-      </div>
-    </div>
-  </div>
+
+  @for(student of studentList; track $index){
+    <!-- {{student.name}} -->
+    <div class="col-sm-3">
+      <div class="card">
+       <div class="card-header">
+         <div class="row">
+           <div class="col-sm-7">
+             <h5 class="card-title">{{student.name}} </h5>
+             </div>
+             <div class="col-sm-5">
+               <h6 class="card-title"> {{student.mobileNo}}  </h6>
+               </div>
+             </div>
+       </div>
+       <div class="card-body">
+         
+               
+         <p class="card-text">{{student.city}}</p>
+         <p class="card-text">{{student.state}}</p>
+         <p class="card-text">{{student.pincode}}</p>
+         <p class="card-text">{{student.address}}</p>
+         <!-- <a href="#" class="btn btn-primary">See Profile</a> -->
+         <div class="card-footer">
+           <p class="text-center"> {{student.email}}</p>
+           <button class="btn btn-outline-primary" (click)="onEdit(student)" >Edit</button>
+           <button class="btn btn-outline-danger">Delete</button>
+         </div>
+       </div>
+     </div>
+   </div>
+ }
+ @empty{
+   <p>No Student Added</p>
+ }
+
+
+  
 </div>
 
 </div>
-
-
-
-
 
 <!-- The Modal -->
-<div class="modal" id="myModal">
+<div class="modal" id="myModal" #myModal>
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Modal Heading</h4>
-        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal"></button> -->
-        <button type="button" class="btn-close" (click)="closeModel()" ></button>
+        
+        <button type="button" class="btn-close" (click)="closeModel()"></button>
         
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-        Modal body..
+        <form action="">
+          <input class="form-control mb-2" type="text" name="name" id="" placeholder="name"
+          [(ngModel)]="studentObj.name"
+          > 
+          <input class="form-control mb-2" type="number" name="mobileNo" id="" placeholder="mobileNo"
+          [(ngModel)]="studentObj.mobileNo"> 
+          <input class="form-control mb-2" type="email" name="email" id="" placeholder="email"
+          [(ngModel)]="studentObj.email"> 
+          <input class="form-control mb-2" type="text" name="city" id="" placeholder="city"
+          [(ngModel)]="studentObj.city"> 
+
+          <input class="form-control mb-2" type="text" name="state" id="" placeholder="state"
+          [(ngModel)]="studentObj.state"> 
+          <input class="form-control mb-2" type="number" name="pincode" id="" placeholder="pincode"
+          [(ngModel)]="studentObj.pincode"> 
+
+          <textarea class="form-control mb-2" rows="3" name="address" id="" placeholder="address"
+          [(ngModel)]="studentObj.address" ></textarea>
+
+
+
+        </form>
       </div>
 
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" (click)="saveStudent()">Save Student</button>
+        <button type="button" class="btn btn-danger" (click)="closeModel()">Delete</button>
       </div>
 
     </div>
